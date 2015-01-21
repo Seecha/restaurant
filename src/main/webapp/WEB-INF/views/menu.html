@@ -1,0 +1,146 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+    <div th:include="../templates/jsincludes :: js"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content">
+
+        <!-- DISHES -->
+
+        <div th:if="${dishesToShow} == true">
+            <h2 th:text="#{ui.dishmenu.dishname}"></h2>
+            <table th:class="dish" th:each="dish : ${dishes}" >
+                <tbody >   
+                      <tr>
+                        <form method="get" class="buyForm">
+                            <td class="first"><b th:unless="${dish.dishLoc} == null" th:text="${dish.dishLoc.name}"></b></td>
+                            <td class="second"><b th:unless="${dish.dishLoc} == null" th:text="${dish.dishLoc.description}"></b></td>
+                            <td class="third"><b th:text="${dish.price} + ' Kč'"></b></td>
+                            <td class="fourth"><input type="text" name="amount" th:value="${dish.amount}" /></td>
+                            <input type="hidden" name="id" th:value="${dish.id}" />
+                            <input type="hidden" name="price" th:value="${dish.price}"/>
+                            <td class="undecorated"><input class="buy" th:value="#{ui.dishmenu.add}" type="submit" /></td>
+                        </form>
+                       </tr>
+                       <tr>
+                            <td class="undecorated" th:text="${dish.kcal} + ' ' + #{ui.dishmenu.kcal}"></td>
+                            <td class="undecorated" th:text="${dish.fatGrams} + ' ' + #{ui.dishmenu.fat}"></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                            	<form th:action="@{/comments}" method="get">                        		   
+                        			<input type="hidden" name="id" th:value="${dish.id}"/>
+                                	<input type="submit" th:value="#{ui.dishmenu.comments}"/>	
+                        		</form>
+
+                            </td>
+                       </tr>
+                       <tr>
+                            <td class="undecorated" th:text="${dish.proteinGrams} + ' ' + #{ui.dishmenu.protein}"></td>
+                            <td class="undecorated" th:text="${dish.saccharideGrams} + ' ' + #{ui.dishmenu.sugar}"></td>
+                            <td></td>
+							<td></td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            	<form th:action="@{/admin/updateDish}" method="get">                        		   
+                        			<input type="hidden" name="id" th:value="${dish.id}"/>
+                                	<input type="submit" th:value="#{ui.dishmenu.update}"/>	
+                        		</form>
+                            </td>
+                       </tr>
+                       <tr sec:authorize="hasRole('ROLE_ADMIN')">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                               	<form th:action="@{/admin/deleteDish}" method="post">                        		   
+                        			<input type="hidden" name="id" th:value="${dish.id}"/>
+                                	<input type="submit" th:value="#{ui.dishmenu.delete}"/>	
+                        		</form>
+                            
+                            </td>
+                       </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <!-- DRINKS -->
+
+        <div th:if="${drinksToShow} == true">
+            <h2 th:text="#{ui.dishmenu.drinks}"></h2>
+            <table th:class="drink" th:each="drink : ${drinks}">
+                
+                    <tbody >
+                        <tr>
+                        	<form method="get" class="buyForm">
+                            <td><b th:text="${drink.dishLoc.name}" th:unless="${drink.dishLoc} == null"></b></td>
+                            <td th:text="${drink.dishLoc.description}" th:unless="${drink.dishLoc} == null"></td>
+                            <td><b th:text="${drink.price} + ' Kč'"></b></td>
+                            <td><input type="text" name="amount" th:value="${drink.amount}"/></td>
+                            <input type="hidden" name="id" th:value="${drink.id}"/>
+                            <input type="hidden" name="price" th:value="${drink.price}"/>
+                            <td><input th:value="#{ui.dishmenu.add}" type="submit" /></td>
+                            </form>
+                        </tr>
+                        <tr>
+                            <td th:text="${drink.saccharideGrams} + ' ' + #{ui.dishmenu.sugar}"></td>
+                            <td th:text="${drink.kcal} + ' ' + #{ui.dishmenu.kcal}"></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                            	<form th:action="@{/comments}" method="get">                        		   
+                        			<input type="hidden" name="id" th:value="${drink.id}"/>
+                                	<input type="submit" th:value="#{ui.dishmenu.comments}"/>	
+                        		</form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td th:text="${drink.proteinGrams} + ' ' + #{ui.dishmenu.protein}"></td>
+                            <td th:text="${drink.fatGrams} + ' ' + #{ui.dishmenu.fat}"></td>
+                            <td></td>
+                            <td></td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            	<form th:action="@{/admin/updateDish}" method="get">                        		   
+                        			<input type="hidden" name="id" th:value="${drink.id}"/>
+                                	<input type="submit" th:value="#{ui.dishmenu.update}"/>	
+                        		</form>
+                            </td>
+                        </tr>
+                        <tr sec:authorize="hasRole('ROLE_ADMIN')">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                               	<form th:action="@{/admin/deleteDish}" method="post">                        		   
+                        			<input type="hidden" name="id" th:value="${drink.id}"/>
+                                	<input type="submit" th:value="#{ui.dishmenu.delete}"/>	
+                        		</form>
+                            
+                            </td>
+                       </tr>
+                    </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

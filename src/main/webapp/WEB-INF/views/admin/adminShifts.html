@@ -1,0 +1,66 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content">
+        <h1 th:text="#{ui.menu.manageShifts}"></h1>
+      		<table th:unless="shifts == null">
+      			<thead>
+      				<tr>
+      					<td th:text="#{ui.adminShifts.day}"></td>
+      					<td th:text="#{ui.adminShifts.since}"></td>
+      					<td th:text="#{ui.adminShifts.to}"></td>
+      					<td th:text="#{ui.adminShifts.employees}"></td>
+      					<td></td>
+      					
+      				</tr>
+      			</thead>
+      			<tbody>
+					<tr th:each="shift : ${shifts}" class="shift">
+						<td th:text="${shift.workDay}"></td>
+						<td th:text="${shift.sinceHour}"></td>
+						<td th:text="${shift.ToHour}"></td>
+						<td>
+							<table th:unless="${shift.employees} == null">
+								<tbody>
+									<tr th:each="employee: ${shift.employees}">
+										<td th:text="${employee.username}">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+						<td>
+							<form th:action="@{/admin/shift}" action="#" method="get">
+								<input type="hidden" th:value="${shift.id}" name="id"/>
+								<input type ="submit" th:value="#{ui.adminShifts.edit}" />
+								
+							</form>
+						</td>
+						
+					</tr>
+      			</tbody>
+      		</table>
+
+     
+        
+    </div>
+</div>
+
+<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

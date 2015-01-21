@@ -1,0 +1,89 @@
+
+table.drink {
+	width: 65%;
+	margin-top: 10px;
+	background: linear-gradient(#FFA78E, #FF8766);
+	border-radius: 3px;
+    border: 1px solid #C68B15;
+}
+
+table.dish, table.order {
+	width: 85%;
+	margin-top: 10px;
+	background: linear-gradient(#D7FF75, #A2E200);
+	border-radius: 3px;
+	border: 1px solid #8CC400;
+}
+
+table.order {
+	background: linear-gradient(#FFC99B, #FFC937);
+	border-color: #EDB284;
+}
+
+table.cook {
+	width: 80%;
+	margin-top: 10px;
+	background: linear-gradient(#D7FFA7, #C2E05D);
+	border-radius: 3px;
+	border: 1px solid #8CC400;
+}
+
+table.dish input[type="text"], table.drink input[type="text"] {
+	width: 20px;
+}
+
+table.dish .first {
+	width: 200px;
+}
+
+table.dish .second {
+	width: 500px;
+}
+
+table.dish .third {
+	width: 80px;
+}
+
+table.dish .fourth {
+	width: 30px;
+}
+
+table.ingredient {
+	margin: 5px 5px 5px 5px;
+	width: 47%;
+	float: left;
+	margin-top: 10px;
+	background: linear-gradient(#D7FF75, #A2E200);
+	border-radius: 3px;
+	border: 1px solid #8CC400;
+}
+
+table.ingredient input[type="text"] {
+	width: 20px;
+}
+
+th, td {
+	padding: 4px 10px 4px 10px;
+}
+
+td {
+}
+
+th {
+	text-align: left;
+}
+
+td.cartPropsShort {
+	width: 10px;
+	margin: 0px;
+	padding: 0px;
+}
+
+td.cartPropsLong {
+	width: 100px;
+	padding-right: 0px;
+}
+
+tr.shift{
+	background: linear-gradient(#D7FF75, #A2E200);
+}

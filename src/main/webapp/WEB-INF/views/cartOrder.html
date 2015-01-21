@@ -1,0 +1,108 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Restaurace</title>
+    <link rel="shortcut icon" href="/restaurace/restaurace-icon.ico" type="image/x-icon"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+    <div th:include="../templates/jsincludes :: js"></div>
+</head>
+
+<body>
+    <header th:include="../templates/header :: header"></header>
+
+    <div id="container">
+        <div th:include="../templates/menu :: menu"></div>
+        <div id="main_content">
+            <h1 th:text="#{ui.cart.paymentDetails}"></h1>
+
+            <!-- AUTHENTICATION PROMPT -->
+
+            <div sec:authorize="isAnonymous()">
+                <form method="post" action="/j_spring_security_check" th:action="@{/j_spring_security_check}" >
+                    <label>
+                        <span th:text="#{ui.header.username} + ' : ' ">Username :  </span>
+                        <input type="text" name='j_username'/>
+                    </label>
+                    <label>
+                        <span th:text="#{ui.header.password} + ' : ' ">Password :  </span>
+                        <input type="password" name='j_password'/>
+                    </label>
+                    <input type="submit" value="Přihlásit se" th:value="#{ui.header.login}"/>
+                </form>
+            </div>
+
+            <!-- FORM TO BE SENT TO CHECKOUT -->
+
+            <form id="deliveryForm" action="#" th:action="@{/checkout}"
+                  method="post" enctype="application/x-www-form-urlencoded">
+
+                <!-- ADDITIONAL INFO IF NOT LOGGED IN -->
+
+                <div sec:authorize="isAnonymous()">
+                    <span th:text="#{ui.orderCart.street} + ': '"></span><input type="text" name="street"/>
+                    <span th:text="#{ui.orderCart.city} + ': '"></span><input type="text" name="city"/>
+                    <span th:text="#{ui.orderCart.phonenumber} + ': '"></span><input type="text" name="phonenumber"/>
+                </div>
+
+                <!-- AVAILABLE DELIVERIES -->
+
+                <div th:unless="${deliveries} == null">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th th:text="#{ui.cartOrder.deliveryName}"></th>
+                                <th th:text="#{ui.cartOrder.deliveryCompany}"></th>
+                                <th th:text="#{ui.cartOrder.payment}"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="deliveries" th:each="delivery : ${deliveries}">
+                                <td><input class="deliveryRadio" type="radio" name="delivery" th:value="${delivery.name}"/></td>
+                                <td th:text="${delivery.name}"></td>
+                                <td th:text="${delivery.companyName}"></td>
+                                <td class="deliveryPrice" th:text="${delivery.price} + ' Kč'"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+            <!-- CART ITEMS -->
+
+            <div id="cartItems" th:unless="${session.cart} == null" th:include="@{../templates/cartItems} :: cartItems"></div>
+
+            <!-- CART CALCULATIONS -->
+
+            <div>
+                <table id="orderCartCalculation" th:unless="${session.cart} == null" th:object="${session.cart}">
+                    <tbody>
+                        <tr>
+                            <td th:text="#{ui.cart.dishTotalPrice}"></td>
+                            <td id="dishTotalPrice" th:text="*{totalPrice} + ' Kč'"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="#{ui.cart.deliveryPrice}"></td>
+                            <td id="deliveryPrice"></td>
+                        </tr>
+                        <tr>
+                            <td><b th:text="#{ui.cart.totalPrice}"></b></td>
+                            <td><b id="totalPrice"></b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="checkoutSubmit" th:class="abutton" th:text="#{ui.cart.doOrder}"/>
+            </div>
+        </div>
+    </div>
+
+    <footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

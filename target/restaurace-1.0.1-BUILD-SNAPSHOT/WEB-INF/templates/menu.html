@@ -1,0 +1,37 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<div th:fragment="menu">
+    <div id="main_menu">
+        <ul>
+            <li><a href="" th:href="@{/home}" th:text="#{ui.menu.intro}">Úvod</a></li>
+            <li>
+                <a th:href="@{/menu}" th:text="#{ui.menu.menu}">Menu</a>
+                <ul>
+                    <li><a th:href="@{/dishes}" th:text="#{ui.dishmenu.dishes}"></a></li>
+                    <li><a th:href="@{/drinks}" th:text="#{ui.dishmenu.drinks}"></a></li>
+                </ul>
+            </li>
+            <li><a href="" th:href="@{/}" th:text="#{ui.menu.contact}">Kontakty</a></li>
+            <li><a href="" th:href="@{/teppanyaki}" th:text="#{ui.menu.teppanyaki}">Teppanyaki</a></li>
+            <li><a href="" th:href="@{/}" th:text="#{ui.menu.calculator}">Kalkulacka</a></li>
+            <li>
+                <a th:text="#{ui.menu.shifts}">Smeny</a>
+                <ul>
+                    <li><a th:href="@{/currentlyWorking}" th:text="#{ui.personal.currentlyWorking}"></a></li>
+                    <li><a th:href="@{/allPersonal}" th:text="#{ui.personal.allPersonal}"></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</html>

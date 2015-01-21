@@ -1,0 +1,17 @@
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:15 +0100] "GET /restaurace HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:17 +0100] "GET /restaurace/ HTTP/1.1" 200 4447 http-bio-8080-exec-2 1315
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:19 +0100] "GET /restaurace/menu HTTP/1.1" 200 8593 http-bio-8080-exec-3 537
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:20 +0100] "GET /restaurace/addToCart?amount=1&id=4&price=220.50 HTTP/1.1" 200 249 http-bio-8080-exec-4 157
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:21 +0100] "GET /restaurace/addToCart?amount=1&id=6&price=285.50 HTTP/1.1" 200 247 http-bio-8080-exec-5 14
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:22 +0100] "GET /restaurace/showCart HTTP/1.1" 200 8108 http-bio-8080-exec-6 229
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:24 +0100] "GET /restaurace/orderCart HTTP/1.1" 200 11050 http-bio-8080-exec-7 430
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:30 +0100] "POST /restaurace/j_spring_security_check HTTP/1.1" 302 - http-bio-8080-exec-8 163
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:30 +0100] "GET /restaurace/ HTTP/1.1" 200 4499 http-bio-8080-exec-9 23
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:31 +0100] "GET /restaurace/admin/showNewOrders HTTP/1.1" 200 11 http-bio-8080-exec-10 79
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:33 +0100] "GET /restaurace/showCart HTTP/1.1" 200 8155 http-bio-8080-exec-10 34
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:33 +0100] "GET /restaurace/admin/showNewOrders HTTP/1.1" 200 11 http-bio-8080-exec-10 24
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:35 +0100] "GET /restaurace/orderCart HTTP/1.1" 200 10195 http-bio-8080-exec-10 27
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:35 +0100] "GET /restaurace/admin/showNewOrders HTTP/1.1" 200 11 http-bio-8080-exec-10 56
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:46 +0100] "POST /restaurace/checkout HTTP/1.1" 302 - http-bio-8080-exec-10 5421
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:46 +0100] "GET /restaurace/cartCheckout HTTP/1.1" 200 4438 http-bio-8080-exec-10 107
+0:0:0:0:0:0:0:1 - - [25/Dec/2014:10:58:46 +0100] "GET /restaurace/admin/showNewOrders HTTP/1.1" 200 11 http-bio-8080-exec-10 43

@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <link rel="shortcut icon" href="/restaurace/restaurace-icon.ico" type="image/x-icon"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+    <div th:include="../templates/jsincludes :: js"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content" ></div>
+</div>
+<footer th:include="../templates/footer :: footer"></footer>
+</body>
+</html>

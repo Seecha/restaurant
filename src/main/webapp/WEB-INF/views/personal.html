@@ -1,0 +1,87 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Restaurace</title>
+        <link rel="shortcut icon" href="/restaurace/restaurace-icon.ico" type="image/x-icon"/>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <div th:include="../templates/styles :: styles"></div>
+        <div th:include="../templates/jsincludes :: js"></div>
+    </head>
+
+    <body>
+        <header th:include="../templates/header :: header"></header>
+            <div id="container">
+                <div th:include="../templates/menu :: menu"></div>
+                <div id="main_content" >
+
+                    <!-- WHOS COOKING CURRENTLY -->
+
+                    <div class="currentPersonal" th:unless="${currentCooks} == null or ${currentCooks.isEmpty()}">
+                        <h3 th:text="#{ui.whosCooking.currentCooks}"></h3>
+                        <table class="cook" th:each="currCook : ${currentCooks}">
+                            <tbody>
+                                <tr th:object="${currCook}">
+                                    <td rowspan="2">
+                                        <img th:src="@{'/resources/images/employees/' + ${currCook.employee.picture} + '.jpg'}"
+                                             th:unless="*{employee} == null or *{employee.employeeLoc} == null"/>
+                                    </td>
+                                    <td th:text="${currCook.firstname}"></td>
+                                    <td th:text="${currCook.surname}"></td>
+                                    <td th:unless="*{employee} == null or *{employee.employeeLoc} == null"
+                                        th:text="${currCook.employee.employeeLoc.story}"></td>
+                                </tr>
+                                <tr th:each="shift : ${currCook.shifts}">
+                                    <td>
+                                        <span th:text="#{ui.personal.sinceHour} + ': ' + ${shift.sinceHour} + ' h'"/>
+                                    </td>
+                                    <td>
+                                        <span th:text="#{ui.personal.toHour} + ': ' + ${shift.toHour} + ' h'"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ALL COOKS AND CHEFS EMPLOYED -->
+
+                    <div class="personal" th:unless="${chefs} == null or ${cooks} == null">
+                        <h3 th:text="#{ui.whosCooking.cooks}"></h3>
+                        <table class="cook" th:unless="${chefs} == null" th:each="chef : ${chefs}">
+                            <tbody>
+                                <tr th:object="${chef}">
+                                    <td rowspan="2">
+                                        <img th:src="@{'/resources/images/employees/' + ${chef.employee.picture} + '.jpg'}"
+                                             th:unless="*{employee} == null or *{employee.employeeLoc} == null"/>
+                                    </td>
+                                    <td th:text="*{firstname}"></td>
+                                    <td th:text="*{surname}"></td>
+                                    <td th:text="*{employee.employeeLoc.story}"
+                                        th:unless="*{employee} == null or *{employee.employeeLoc} == null"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="cook" th:unless="${cooks} == null" th:each="cook : ${cooks}">
+                            <tbody>
+                                <tr th:object="${cook}">
+                                    <td rowspan="2">
+                                        <img th:src="@{'/resources/images/employees/' + ${cook.employee.picture} + '.jpg'}"
+                                             th:unless="*{employee} == null or *{employee.employeeLoc} == null"/>
+                                    </td>
+                                    <td th:text="*{firstname}"></td>
+                                    <td th:text="*{surname}"></td>
+                                    <td th:text="*{employee.employeeLoc.story}"
+                                        th:unless="*{employee} == null or *{employee.employeeLoc} == null"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        <footer th:include="../templates/footer :: footer"></footer>
+    </body>
+</html>

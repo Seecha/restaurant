@@ -1,0 +1,55 @@
+#header_login input{
+    display: block;
+    width: 110px;
+    padding: 1px 3px 1px 3px;
+}
+
+#header_login label{
+    display: block;
+}
+
+#header_login span{
+    display: block;
+    padding: 1px 1px 1px 1px;
+}
+
+#header_login label>span{
+    float: left;
+    text-align: right;
+    width: 50%;
+}
+
+#header_login label {
+    margin-top: 15px;
+}
+
+#header_login, #header_login a {
+    font: 14px Candara;
+}
+
+#regform label{
+    display: block;
+    padding-top: 15px;
+}
+
+#regform label>span.fname{
+    float: left;
+    text-align: right;
+    width: 180px;
+}
+
+#regform label>span.errormsg{
+    margin-right: 17em;
+    float: right;
+    text-align: left;
+    color: red;
+}
+
+#regform input[type="submit"] {
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+input#teppanyakiAmount {
+    width: 30px;
+}

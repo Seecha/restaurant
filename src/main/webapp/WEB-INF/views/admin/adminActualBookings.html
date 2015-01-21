@@ -1,0 +1,38 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs" xml:lang="cs" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Restaurace</title>
+<link rel="shortcut icon" href="/restaurace/restaurace-icon.ico"
+	type="image/x-icon" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<div th:include="../templates/styles :: styles"></div>
+<div th:include="../templates/jsincludes :: js"></div>
+</head>
+
+<body>
+	<header th:include="../templates/header :: header"></header>
+	<div id="container">
+		<div th:include="../templates/menu :: menu"></div>
+		<div id="main_content">
+			<div th:unless="${bookings} == null">
+				<table class="order" th:each="booking : ${bookings}">
+					<tbody>
+						<tr>
+							<td th:text="#{ui.bookings.date} + ': ' + ${booking.date}"></td>
+							<td th:text="#{ui.bookings.sinceHour} + ': ' + ${booking.sinceHour}"></td>
+							<td th:text="#{ui.bookings.toHour} + ': ' + ${booking.ToHour}"></td>
+							<td th:unless="${booking.customer} == null" th:text="#{ui.booking.customer} + ': ' + ${booking.customer.username}"></td>
+							<td th:unless="${booking.dinnerTable} == null" th:text="#{ui.bookings.tableNumber} + ': ' + ${booking.dinnerTable.id}"></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<footer th:include="../templates/footer :: footer"></footer>
+</body>
+</html>

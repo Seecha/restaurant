@@ -1,0 +1,179 @@
+@CHARSET "UTF-8";
+
+html {
+	font: 16px Candara;
+
+}
+
+a.button{
+  display: block;
+  width: 115px;
+  height: 25px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+#main_menu ul {
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
+#main_menu ul li {
+
+	min-width: 7em;
+	display: inline-block;
+  	margin-left: -4;
+  	margin-right: -4px;
+  	position: relative;
+  	background: #353535;
+  	text-align: center;
+}
+#main_menu ul li:hover {
+  background: black;
+}
+
+#main_menu ul li a {
+	display: block;
+	text-decoration: none;
+	color: white;
+}
+
+#main_menu ul li a:hover {
+	background-color: black;
+}
+#main_menu ul li ul {		
+  padding: 0;
+  position: absolute;
+  left: 0;
+  width: 150px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+#main_menu ul li ul li { 
+  background: #555; 
+  display: block;
+  color: #fff;
+  text-shadow: 0 -1px 0 #000;
+}
+#main_menu ul li ul li:hover { background: #666; }
+#main_menu ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+#main_menu ul li ul li a {
+	background-color: #FF802B;
+}
+
+#main_menu ul li ul li a:hover {
+	background-color: #EA5827;
+}
+
+#main_content a {
+	text-decoration: none;
+    color: black;
+	padding: 4px 12px 8px 12px;
+}
+
+#main_content a.abutton {
+	background-color: #E2BE51;
+	border-radius: 2px;
+	border: 1px solid;
+}
+
+#main_content a.abutton:hover {
+	color: white;
+	background-color: black;
+	border: 1px solid black;
+}
+
+h1, h2 {
+	margin-top: 15px;
+	font-size: 20px;
+}
+
+#header_login a {
+	text-decoration: none;
+	color: white;
+	font-size: 13px;
+	float: left;
+}
+
+#header_login a:hover {
+	color: grey;
+}
+
+.user_menu_header a {
+	display: block;
+}
+
+#main_content label {
+	display: block;
+}
+
+#menu_left table {
+	margin-left: 0px;
+}
+
+#menu_left h2 {
+	padding-left: 23px
+}
+
+#menu_left a img{
+	border: 1px solid #195400;
+	box-shadow: 3px 3px 5px #4C4C3D;
+	border-radius: 3px;
+}
+
+#actualIngredients.description {
+	width: 120px;
+}
+
+div.personal td, div.currentPersonal td {
+	min-width: 110px;
+}
+
+td.removeRedCross {
+	float: right;
+}
+
+img#orders, img#cart{
+	border-radius: 2px;
+	margin: 3px 3px 3px 3px;
+}
+
+img#cart {
+	margin-left: 190px;
+	
+	
+}
+
+/*img#orders:hover, img#cart:hover{
+	background-color: #3F3F3F;
+}*/
+
+div#newOrders{
+	position: absolute;
+	background-color: #E20000;
+	width: auto;
+	height: 18px;
+	margin-top: 0%;
+	margin-left: 1.7%;
+	border: 1px solid #FF6D6D;
+	border-radius: 2px;
+	text-align: top;
+	box-shadow: 3px 3px 5px #4C4C3D;
+}
+
+#newOrdersCount {
+	vertical-align: top;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+    <div th:fragment="cartItems">
+
+        <!-- ORDERED DISHES -->
+
+        <h1 th:text="#{ui.cart.cart}"></h1>
+        <table th:unless="${session.cart} == null or ${orderedDishes.isEmpty()}"
+               th:each="dish : ${orderedDishes}"
+               th:class="${dish.value.dishCategory.name}" >
+            <tbody>
+            <tr>
+                <td class="first"><b th:text="${dish.value.dishLoc.name}" th:unless="${dish.value.dishLoc} == null"></b></td>
+                <td class="second"><b th:text="${dish.value.dishLoc.description}" th:unless="${dish.value.dishLoc} == null"></b></td>
+                <td class="third"><b th:text="#{ui.cart.price} + ' ' + ${dish.value.price} + ' Kč'"></b></td>
+                <td class="fourth" th:text="#{ui.cart.amount} + ' ' + ${dish.value.amount}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td th:text="${dish.value.kcal} + ' ' + #{ui.dishmenu.kcal}"></td>
+                <td th:text="${dish.value.fatGrams} + ' ' + #{ui.dishmenu.fat}"></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <form class="removeCartItem">
+                        <input name="id" type="hidden" th:value="${dish.value.id}"/>
+                        <input type="image" src="/restaurace/resources/images/red-cross.png"/>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="${dish.value.proteinGrams} + ' ' + #{ui.dishmenu.protein}"></td>
+                <td th:text="${dish.value.saccharideGrams} + ' ' + #{ui.dishmenu.sugar}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- ORDERED TEPPANYAKI DISHES -->
+
+        <table th:unless="${session.cart} == null or ${teppanyakiDishes.isEmpty()}"
+               th:each="dish : ${teppanyakiDishes}"
+               class="dish">
+            <tbody>
+                <tr>
+                    <td class="first">
+                        <b th:text="${dish.value.name}"></b>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:each="ingr : ${dish.value.ingredients}"
+                        th:text="${ingr.value.ingredientLocalized.name} + ' ' + ${ingr.value.grams} + ' g' + ' : ' + ${ingr.value.kcal} + ' kcal'">
+                    </td>
+                    <td class="removeRedCross">
+                        <form class="removeCustomCartItem">
+                            <input name="name" type="hidden" th:value="${dish.value.name}"/>
+                            <input type="image" src="/restaurace/resources/images/red-cross.png"/>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{ui.cartItems.totalKcal} + ': ' + ${dish.value.dishesTotalKcals} + ' kcal'"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</html>

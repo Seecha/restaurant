@@ -1,0 +1,3 @@
+0:0:0:0:0:0:0:1 - - [22/Dec/2014:20:58:26 +0100] "GET /restaurace/admin/newOrders HTTP/1.1" 302 - http-bio-8080-exec-1 156
+0:0:0:0:0:0:0:1 - - [22/Dec/2014:20:58:28 +0100] "GET /restaurace/ HTTP/1.1" 200 4447 http-bio-8080-exec-2 1503
+0:0:0:0:0:0:0:1 - - [22/Dec/2014:20:58:54 +0100] "POST /restaurace/j_spring_security_check HTTP/1.1" 302 - http-bio-8080-exec-3 570

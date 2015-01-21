@@ -1,0 +1,43 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <beans:bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="encoder" />
+
+
+    <beans:bean id="customAuthenticationProvider" class="cz.uhk.restaurace.service.authentication.provider.CustomAuthenticationProvider"
+            scope="singleton">
+        <beans:property name="userDetailsService" ref="userDetailService"/>
+       <!--  <beans:property name="password-encoder" ref="encoder"/> --> 
+    </beans:bean>
+
+    <beans:bean id="userDetailService" class="cz.uhk.restaurace.service.authentication.impl.UserDetailServiceImpl"/>
+
+    <authentication-manager alias="">
+        <authentication-provider ref="customAuthenticationProvider">
+            <!--<jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query=
+                                       "select username, password, enabled from user where username = ?"
+                               authorities-by-username-query=
+                                       "select user, role from user_roles where user = ?" />-->
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsService"
+                class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <beans:property name="dataSource" ref="dataSource"/>
+    </beans:bean>
+
+    <http auto-config='true' use-expressions="true">
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+        <form-login login-page="/" />
+        <logout logout-success-url="/" />
+        <session-management>
+            <concurrency-control max-sessions="1"/>
+        </session-management>
+    </http>
+
+</beans:beans>

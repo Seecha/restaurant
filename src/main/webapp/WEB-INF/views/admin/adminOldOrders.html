@@ -1,0 +1,88 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs" xml:lang="cs" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Restaurace</title>
+<link rel="shortcut icon" href="/restaurace/restaurace-icon.ico"
+	type="image/x-icon" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<div th:include="../templates/styles :: styles"></div>
+<div th:include="../templates/jsincludes :: js"></div>
+</head>
+
+<body>
+	
+	<header th:include="../templates/header :: header"></header>
+	<div id="container">
+		<div th:include="../templates/menu :: menu"></div>
+		<div id="main_content">
+			<div th:unless="${regOrders} == null">
+				<h3 th:text="#{ui.adminNewOrders.regOrders}"></h3>
+				<table>
+					<thead>
+					<tr>
+						<td th:text="#{ui.adminOldOrders.date}"></td>
+						<td th:text="#{ui.adminOldOrders.username}"></td>
+						<td th:text="#{ui.adminOldOrders.totalPrice}"></td>
+						<td></td>
+					</tr>
+					</thead>
+					<tbody>
+						<tr th:each="order : ${regOrders}" th:unless="${order.customer} == null">
+							<td th:text="${order.date}"></td>
+							<td th:text="${order.customer.username}"></td>
+							<td th:text="${order.valueOfTotalPriceField}"></td>
+							<td>
+								<form method="get" action="#" th:action="@{/admin/orderDetails}">
+									<input type="hidden" name="id" th:value="${order.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.detail}" />								
+								</form>
+							</td>
+							<td>
+								<form method="post" action="#" th:action="@{/admin/deleteOrder}">
+									<input type="hidden" name="id" th:value="${order.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.delete}" />								
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div th:unless="${notRegOrders} == null">
+				<h3 th:text="#{ui.adminNewOrders.notregOrders}"></h3>
+				<table>
+					<thead>
+					<tr>
+						<td th:text="#{ui.adminOldOrders.date}"></td>
+						<td th:text="#{ui.adminOldOrders.phonenumber}"></td>
+						<td th:text="#{ui.adminOldOrders.totalPrice}"></td>
+						<td></td>
+					</tr>
+					</thead>
+					<tbody>
+						<tr th:each="order : ${notRegOrders}" th:if="${order.customer} == null">
+							<td th:text="${order.date}"></td>
+							<td th:text="${order.tempCustomerInfo.phonenumber}"></td>
+							<td th:text="${order.valueOfTotalPriceField}"></td>
+							<td>
+								<form method="get" action="#" th:action="@{/admin/orderDetails}">
+									<input type="hidden" name="id" th:value="${order.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.detail}" />								
+								</form>
+							</td>
+							<td>
+								<form method="get" action="#" th:action="@{/admin/deleteOrder}">
+									<input type="hidden" name="id" th:value="${order.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.delete}" />								
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<footer th:include="../templates/footer :: footer"></footer>
+</body>
+</html>

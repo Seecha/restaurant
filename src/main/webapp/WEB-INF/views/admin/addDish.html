@@ -1,0 +1,92 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content">
+        <h1 th:text="#{ui.menu.addDish}"></h1>
+        <form th:action="@{/admin/addDish}" action="#" method="post" th:object="${newDishForm}">
+        <table>
+        <tbody>
+        <tr>
+                <td th:text="#{ui.dishmenu.kcal} + ' : '"></td>
+                <td><input type="text" th:field="*{kcal}"/></td>
+                <td  th:if="${#fields.hasErrors('kcal')}" th:errors="*{kcal}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.dishmenu.fat} + ' : '"></td>
+                <td><input type="text" th:field="*{fatGrams}"/></td>
+                <td  th:if="${#fields.hasErrors('fatGrams')}" th:errors="*{fatGrams}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.dishmenu.sugar} + ' : '"></td>
+                <td><input type="text" th:field="*{saccharideGrams}"/></td>
+                <td  th:if="${#fields.hasErrors('saccharideGrams')}" th:errors="*{saccharideGrams}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.dishmenu.protein} + ' : '"></td>
+                <td><input type="text" th:field="*{proteinGrams}"/></td>
+                <td  th:if="${#fields.hasErrors('proteinGrams')}" th:errors="*{proteinGrams}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.dishmenu.price} + ' : '"></td>
+                <td><input type="text" th:field="*{price}"/></td>
+                <td  th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></td>
+            </tr>
+             <tr>
+                <td th:text="#{ui.addIngredient.csName} + ' : '"></td>
+                <td><input type="text" th:field="*{csName}"/></td>
+                <td  th:if="${#fields.hasErrors('csName')}" th:errors="*{csName}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.addIngredient.enName} + ' : '"></td>
+                <td><input type="text" th:field="*{enName}"/></td>
+                <td  th:if="${#fields.hasErrors('enName')}" th:errors="*{enName}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.addDish.csDescription} + ' : '"></td>
+                <td><input type="text" th:field="*{csDescription}"/></td>
+                <td  th:if="${#fields.hasErrors('csDescription')}" th:errors="*{csDescription}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{ui.addDish.enDescription} + ' : '"></td>
+                <td><input type="text" th:field="*{enDescription}"/></td>
+                <td  th:if="${#fields.hasErrors('enDescription')}" th:errors="*{enDescription}"></td>
+            </tr>
+            <tr>
+            	<td th:text="#{ui.addIngredient.type} + ' : '"></td>
+            	<td><select th:field="*{dishCategory}">
+  				<option th:if="${lang} == cs" th:each="category : ${dishCategories}" th:value="${category}" 
+  				th:text="${category.nameCs}"> </option>
+  				<option th:if="${lang} == en" th:each="category : ${dishCategories}" th:value="${category}" 
+  				th:text="${category.name}"> </option>
+				</select>
+				</td>
+				<td  th:if="${#fields.hasErrors('dishCategory')}" th:errors="*{dishCategory}"></td>
+            </tr>
+            <tr>
+            	<td><input type="submit" th:value="#{ui.addIngredient.save}"/></td>
+            </tr>
+        </tbody>
+        </table>
+        </form>
+        
+    </div>
+</div>
+
+<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

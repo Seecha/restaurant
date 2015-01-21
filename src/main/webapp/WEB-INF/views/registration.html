@@ -1,0 +1,85 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content" class="registration">
+        <form action="#" th:action="@{/registration}" method="post" th:object="${user}" id="regform">
+            <label>
+                <span class="fname" th:text="#{ui.registration.username} + ' : '"></span>
+                <input type="text" th:field="*{username}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.firstname} + ' : '"></span>
+                <input type="text" th:field="*{firstname}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.surname} + ' : '"></span>
+                <input type="text" th:field="*{surname}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.telephone} + ' : '"></span>
+                <input type="text" th:field="*{telephone}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.email} + ' : '"></span>
+                <input type="text" th:field="*{email}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.password} + ' : '"></span>
+                <input type="password" th:field="*{password}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.passwordSecond} + ' : '"></span>
+                <input type="password" th:field="*{passwordVerif}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('passwordVerif')}" th:text="#{ui.err.passmatch}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.street} + ' : '"></span>
+                <input type="text" th:field="*{address.street}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.city} + ' : '"></span>
+                <input type="text" th:field="*{address.city}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.housenum} + ' : '"></span>
+                <input type="text" th:field="*{address.houseNumber}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('address.houseNumber')}" th:errors="*{address.houseNumber}"></span>
+            </label>
+            <label>
+                <span class="fname" th:text="#{ui.registration.zipcode} + ' : '"></span>
+                <input type="text" th:field="*{address.zipCode}"/>
+                <span class="errormsg" th:if="${#fields.hasErrors('address.zipCode')}" th:errors="*{address.zipCode}"></span>
+            </label>
+
+            <input type="submit" th:value="#{ui.registration.register}"/>
+        </form>
+
+    </div>
+</div>
+
+<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

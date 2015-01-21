@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs" xml:lang="cs" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+	<head>
+		<title>Restaurace</title>
+			<link rel="shortcut icon" href="/restaurace/restaurace-icon.ico"
+			type="image/x-icon" />
+			<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+			<div th:include="../templates/styles :: styles"></div>
+		<div th:include="../templates/jsincludes :: js"></div>
+	</head>
+
+<body>
+	<header th:include="../templates/header :: header"></header>
+
+	<div id="container">
+		<div th:include="../templates/menu :: menu"></div>
+		<div id="main_content">
+			<h1 th:text="#{ui.menu.booking}"></h1>
+
+			<!-- AUTHENTICATION PROMPT -->
+
+			<div sec:authorize="isAnonymous()">
+				<p th:text="#{ui.err.loginrequired}"></p>
+				<form method="post" action="/j_spring_security_check"
+					th:action="@{/j_spring_security_check}">
+					<label> <span th:text="#{ui.header.username} + ' : ' ">Username
+							: </span> <input type="text" name='j_username' />
+					</label> <label> <span th:text="#{ui.header.password} + ' : ' ">Password
+							: </span> <input type="password" name='j_password' />
+					</label> <input type="submit" value="Přihlásit se"
+						th:value="#{ui.header.login}" />
+				</form>
+			</div>
+
+			<div sec:authorize="isAuthenticated()">
+				<form method="post" action="#" th:action="@{/booking}" th:object:="${booking}">
+					<table>
+						<tr>
+							<td th:text="#{ui.bookings.date} + ' : '"></td>
+							<td><input type="date" name="date" min="${date}" th:value="${date}"/></td>
+							<td th:if="${wrongDateFormat != null}">
+								<span class="errormsg" th:text="#{ui.err.wrongDateFormat}"></span>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.bookings.sinceHour} + ' : '"></td>
+							<td><input type="number" min="0" max="23" name="since" th:field="${booking.sinceHour}"/></td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.bookings.toHour} + ' : '"></td>
+							<td><input type="number" min="0" max="23" name="to" th:field="${booking.toHour}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.bookings.tableNumber}"></td>
+							<td><select name="tableId">
+  								<option th:each="table : ${tables}" th:value="${table.id}" 
+  								th:text="${table.id}+' (' + #{ui.booking.seatsNumber}+ ': ' +${table.seatsNumber} +')'"> </option>
+								</select>
+							</td>	
+						</tr>
+						<tr>
+							<td th:text="#{ui.bookings.book} + ' : '"></td>
+							<td> <input type="submit" th:value="#{ui.bookings.book}" /></td>
+						</tr>
+					</table>
+					
+					
+				</form>
+			</div>
+			<img th:src="@{'/resources/images/tables.jpg'}" />
+		</div>
+	</div>
+
+	<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

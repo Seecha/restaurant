@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+    <header th:include="../templates/header :: header"></header>
+
+    <div id="container">
+        <div th:include="../templates/menu :: menu"></div>
+        <div id="main_content">
+            <h2 th:text="#{ui.bookings.newbookings}">New Bookings</h2>
+            <h1 th:text="#{ui.bookings.minebookings}">Bookings</h1>
+            <table th:unless="${bookings} == null">
+                <thead>
+                    <tr>
+                        <th th:text="#{ui.bookings.sinceHour}"></th>
+                        <th th:text="#{ui.bookings.toHour}"></th>
+                        <th th:text="#{ui.bookings.date}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:with="df=#{ui.date.format}" th:each="booking : ${bookings}">
+                        <td th:text="${booking.sinceHour}"></td>
+                        <td th:text="${booking.toHour}"></td>
+                        <td th:text="${#calendars.format(booking.date, df)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer >
+        This is footer
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs" xml:lang="cs" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Restaurace</title>
+<link rel="shortcut icon" href="/restaurace/restaurace-icon.ico"
+	type="image/x-icon" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<div th:include="../templates/styles :: styles"></div>
+<div th:include="../templates/jsincludes :: js"></div>
+</head>
+
+<body>
+	<header th:include="../templates/header :: header"></header>
+	<div id="container">
+		<div th:include="../templates/menu :: menu"></div>
+		<div id="main_content">
+				<div th:unless="${order} == null">
+				 <table class="order" th:unless="${order.customer} == null">
+					<tbody>
+						<tr>
+							<td th:text="#{ui.adminNewOrders.username} + ': ' + ${order.customer.username}"></td>
+							<td th:text="#{ui.adminNewOrders.street} + ': ' + ${order.customer.address.street}"></td>
+							<td th:text="#{ui.adminNewOrders.houseNumber} + ': ' + ${order.customer.address.houseNumber}"></td>
+							<td th:text="#{ui.adminNewOrders.city} + ': ' + ${order.customer.address.city}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.adminNewOrders.zipCode} + ': ' + ${order.customer.address.zipCode}"></td>
+							<td th:text="#{ui.adminNewOrders.phonenumber} + ': ' + ${order.customer.telephone}"></td>	
+
+						</tr>
+
+						<tr th:each="dish : ${order.orderedDishes}">
+							<td th:text="#{ui.dishmenu.dishname} + ': ' + ${dish.value.dishLoc.name}"></td>
+							<td th:text="#{ui.header.amountOfItems} + ': ' +${dish.value.amountsInOrders[order.id]}"></td>
+						</tr>
+						<tr th:each="teppanyaki : ${order.orderedTeppanyakiDishes}">
+							<td>
+								<table th:class="dish">
+									<tr>
+										<td
+											th:text="#{ui.menu.teppanyaki} + ': ' + ${teppanyaki.value.name}"></td>
+										<td>
+											<table>
+												<tr th:each="ingredient : ${teppanyaki.value.ingredients}">
+													<td th:text="${ingredient.value.ingredientLocalized.name}"></td>
+													<td th:text="${ingredient.value.gramsInDishes[teppanyaki.value.id]}"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.adminNewOrders.totalPrice} + ': ' + ${order.valueOfTotalPriceField} + ' Kč'"></td>
+							<td> </td> <td></td>
+							<td>
+								<form method="post" action="#" th:action="@{/admin/deleteOrder}">
+									<input type="hidden" name="id" th:value="${order.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.delete}" />
+								
+								</form>
+							</td>
+						</tr>
+
+					</tbody>
+				 </table>
+				 <table class="order" th:unless="${order.tempCustomerInfo} == null">
+				 	<tbody>
+						<tr>
+							<td th:text="#{ui.adminNewOrders.street} + ': ' + ${order.tempCustomerInfo.street}"></td>
+							<td th:text="#{ui.adminNewOrders.city} + ': ' + ${order.tempCustomerInfo.city}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.adminNewOrders.phonenumber} + ': ' + ${order.tempCustomerInfo.phonenumber}"></td>
+						</tr>
+						<tr th:each="dish : ${order.orderedDishes}">
+							<td th:text="#{ui.dishmenu.dishname} + ': ' + ${dish.value.dishLoc.name}"></td>
+							<td th:text="#{ui.header.amountOfItems} + ': ' +${dish.value.amountsInOrders[order.id]}"></td>
+						</tr>
+						<tr th:each="teppanyaki : ${order.orderedTeppanyakiDishes}">
+							<td>
+								<table th:class="dish">
+									<tr>
+										<td th:text="#{ui.menu.teppanyaki} + ': ' + ${teppanyaki.value.name}"></td>
+										<td>
+											<table>
+												<tr th:each="ingredient : ${teppanyaki.value.ingredients}">
+													<td th:text="${ingredient.value.ingredientLocalized.name}"></td>
+													<td th:text="${ingredient.value.gramsInDishes[teppanyaki.value.id]}"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{ui.adminNewOrders.totalPrice} + ': ' + ${order.valueOfTotalPriceField} + ' Kč'"></td>
+							<td></td>
+							<td>
+								<form method="post" action="#" th:action="@{/admin/deleteOrder}">
+									<input type="hidden" name="id" th:value="${order.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.delete}" />
+								
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				 </table>
+				</div>
+			</div>		
+		</div>
+	<footer th:include="../templates/footer :: footer"></footer>
+</body>
+</html>

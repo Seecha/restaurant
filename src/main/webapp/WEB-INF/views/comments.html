@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs" xml:lang="cs" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+	<head>
+		<title>Restaurace</title>
+			<link rel="shortcut icon" href="/restaurace/restaurace-icon.ico"
+			type="image/x-icon" />
+			<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+			<div th:include="../templates/styles :: styles"></div>
+		<div th:include="../templates/jsincludes :: js"></div>
+	</head>
+
+<body>
+	<header th:include="../templates/header :: header"></header>
+
+	<div id="container">
+		<div th:include="../templates/menu :: menu"></div>
+		<div id="main_content" th:unless="${dishLoc == null}">
+			<h1 th:text="${dishLoc.name}" >Comments</h1>
+			<table th:unless="${comments == null}" th:each="comment : ${comments}" class="dish">
+				<tr><td  th:text="${comment.user.username}"></td></tr>
+				<tr><td th:text="${comment.comment}"></td></tr>
+				<tr sec:authorize="hasRole('ROLE_ADMIN')">
+					<td>
+						<form th:action="@{/admin/deleteComment}" method="post">                        		   
+                        	<input type="hidden" name="id" th:value="${comment.id}"/>
+                        	<input type="submit" th:value="#{ui.comment.delete}"/>	
+                 		</form>
+					</td>
+				</tr>
+			</table>
+			
+			<div sec:authorize="isAuthenticated()">
+				<h2 th:text="#{ui.comment.add}"></h2>
+				 <textarea name="comment" form="commentForm"></textarea>
+				 <form th:action="@{/addComment}" method="post" id="commentForm">                        		   
+                        <input type="hidden" name="id" th:value="${dishLoc.id}"/>
+                        <input type="submit" th:value="#{ui.comment.add}"/>	
+                 </form>
+			</div>
+			
+			
+		</div>
+	</div>
+
+	<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

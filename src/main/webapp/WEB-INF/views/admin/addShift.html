@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content">
+        <h1 th:text="#{ui.menu.addShift}"></h1>
+        <form th:action="@{/admin/addShift}" action="#" method="post">
+      		<table>
+      			<tbody>
+      				<tr><td><input type="number" min="0" max ="23" name="since" th:value="6"/></td></tr>
+      				<tr><td><input type="number" min="0" max ="23" name="to" th:value="18"/></td></tr>
+      				<tr>
+      					<td>
+      					<select name="day">
+      						<option th:each="day : ${days}" th:value="${day}" th:text="${day}"/>
+      					</select>
+      					</td>
+      				</tr>
+      				<tr><td><input type="submit" th:value="#{ui.menu.addShift}"/></td></tr>
+      			</tbody>
+      		</table>
+        </form>
+        
+    </div>
+</div>
+
+<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>

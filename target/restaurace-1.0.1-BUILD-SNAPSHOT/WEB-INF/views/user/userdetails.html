@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+    <header th:include="../templates/header :: header"></header>
+
+    <div id="container">
+        <div th:include="../templates/menu :: menu"></div>
+        <div id="main_content" >
+            <h1 th:text="#{ui.userdetails.header}">Nadpis</h1>
+            <table th:object="${#authentication.user}">
+                <thead>
+                    <tr>
+                        <th th:text="#{ui.userdetails.firstname}">Name</th>
+                        <th th:text="#{ui.userdetails.surname}">Surname</th>
+                        <th th:text="#{ui.userdetails.telephone}">Telephone</th>
+                        <th th:text="#{ui.userdetails.username}">Username</th>
+                        <th th:text="#{ui.userdetails.street}">Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="*{firstname}"></td>
+                        <td th:text="*{surname}"></td>
+                        <td th:text="*{telephone}"></td>
+                        <td th:text="*{username}"></td>
+                        <td th:unless="*{address} == null" th:text="*{address.street}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer >
+        This is footer
+    </footer>
+</body>
+</html>

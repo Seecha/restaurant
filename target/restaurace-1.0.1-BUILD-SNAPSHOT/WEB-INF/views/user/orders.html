@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+    <header th:include="../templates/header :: header"></header>
+
+    <div id="container">
+        <div th:include="../templates/menu :: menu"></div>
+        <div id="main_content">
+            <h1 th:text="#{ui.orders.header}">Orders</h1>
+            <table th:unless="${customerOrders} == null">
+                <thead>
+                    <tr>
+                        <th th:text="#{ui.orders.price}"></th>
+                        <th th:text="#{ui.orders.date}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:with="df=#{ui.date.format}" th:each="order : ${customerOrders}">
+                        <td th:text="${order.totalPriceFieldValue} + ' Kč'"></td>
+                        <td th:text="${#calendars.format(order.date, df)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer >
+        This is footer
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="cs"
+      xml:lang="cs"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurace</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <div th:include="../templates/styles :: styles"></div>
+</head>
+
+<body>
+<header th:include="../templates/header :: header"></header>
+
+<div id="container">
+    <div th:include="../templates/menu :: menu"></div>
+    <div id="main_content">
+        <h1 th:text="#{ui.menu.manageShifts}"></h1>
+      		<div th:unless="shift == null">
+      		<h2 th:text="#{ui.adminShifts.editTime}"></h2>
+      		<form th:action="@{/admin/editShiftTime}" action="#" method="post">
+      		<table>
+      			<thead>
+      				<tr>
+      					<td th:text="#{ui.adminShifts.day}"></td>
+      					<td th:text="#{ui.adminShifts.since}"></td>
+      					<td th:text="#{ui.adminShifts.to}"></td>
+      					<td></td>
+      					
+      				</tr>
+      			</thead>
+      			<tbody>
+					<tr>
+						<td>
+						    <select name="day" >
+      							<option th:each="day : ${days}" th:value="${day}" th:text="${day}" th:selected:="${shift.workDay}"/>
+      						</select>
+						</td>
+						<td><input type="number" min="0" max ="23" name="since" th:value="${shift.sinceHour}"/></td>
+						<td><input type="number" min="0" max ="23" name="to" th:value="${shift.toHour}"/></td>
+
+						
+      					<td>
+      						<input type="hidden" th:value="${shift.id}" name="id"/>
+      						<input type="submit" th:value="#{ui.adminShifts.editTime}"/>
+      					</td>
+						
+					</tr>
+      			</tbody>
+      		</table>
+      		</form>
+      		<h2 th:text="#{ui.adminShifts.removeUser}"></h2>
+      		<table>
+      			<tbody>
+      				<tr th:each="employee : ${shift.employees}">
+      					<td th:text="${employee.username}">
+      					</td>
+      					<td>
+      						<form th:action="@{/admin/removeUserFromShift}" action="#" method="post">
+      							<input type="hidden" th:value="${shift.id}" name="shiftId"/>
+      							<input type="hidden" th:value="${employee.username}" name="userId"/>
+      							<input type="submit" th:value="#{ui.adminShifts.removeUser}"/>
+      						</form>
+      					</td>
+      				</tr>
+      			</tbody>
+      		</table>
+      		<h2 th:text="#{ui.adminShifts.addUser}"></h2>
+      			<form th:action="@{/admin/addUserToShift}" action="#" method="post">
+      				<input type="hidden" th:value="${shift.id}" name="shiftId"/>
+      					<select name="username" >
+      						<option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"/>
+      					</select>
+      				<input type="submit" th:value="#{ui.adminShifts.addUser}"/>
+      			</form>
+			</div>
+     
+        
+    </div>
+</div>
+
+<footer th:include="../templates/footer :: footer"></footer>
+
+</body>
+</html>
