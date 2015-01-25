@@ -25,6 +25,12 @@
 							<td th:text="#{ui.bookings.toHour} + ': ' + ${booking.ToHour}"></td>
 							<td th:unless="${booking.customer} == null" th:text="#{ui.booking.customer} + ': ' + ${booking.customer.username}"></td>
 							<td th:unless="${booking.dinnerTable} == null" th:text="#{ui.bookings.tableNumber} + ': ' + ${booking.dinnerTable.id}"></td>
+							<td>
+								<form method="post" action="#" th:action="@{/admin/deleteBooking}">
+									<input type="hidden" name="id" th:value="${booking.id}" />
+									<input type="submit" th:value="#{ui.adminOldOrders.delete}" />
+								</form>
+							</td>
 						</tr>
 
 					</tbody>

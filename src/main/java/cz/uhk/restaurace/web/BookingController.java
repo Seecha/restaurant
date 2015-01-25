@@ -31,7 +31,7 @@ public class BookingController {
 
 	@Autowired
 	private DinnerTableService dinnerTableService;
-	
+
 	@Autowired
 	private BookingService bookingService;
 
@@ -50,31 +50,38 @@ public class BookingController {
 
 	@RequestMapping(value = "/booking", method = RequestMethod.POST)
 	public String book(@Valid Booking booking, BindingResult bindingResult,
-			@RequestParam(required = false) String date,
-			@RequestParam(required = false) int tableId,
-			Authentication authentication,
-			Model model
-			) {
+			@RequestParam String date, @RequestParam int tableId,
+			Authentication authentication, Model model) {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
-		
-			try {
-				booking.setDate(new java.sql.Date(dateFormat.parse(date).getTime()));
-			} catch (ParseException e) {
-				Date dateNow = new Date();
-				model.addAttribute("date", dateFormat.format(dateNow));
-				model.addAttribute("tables", dinnerTableService.listTable());
-				model.addAttribute("wrongDateFormat", true);
-				model.addAttribute("booking", booking);
-				return "booking";
-			}
-		
-		booking.setCustomer((User) authentication.getPrincipal());
+
+		try {
+			booking.setDate(new java.sql.Date(dateFormat.parse(date).getTime()));
+		} catch (ParseException e) {
+			Date dateNow = new Date();
+			model.addAttribute("date", dateFormat.format(dateNow));
+			model.addAttribute("tables", dinnerTableService.listTable());
+			model.addAttribute("wrongDateFormat", true);
+			model.addAttribute("booking", booking);
+			return "booking";
+		}
 		booking.setDinnerTable(dinnerTableService.getTableById(tableId));
+		if(bookingService.isBooked(booking.getDinnerTable(), booking.getDate(),
+				booking.getSinceHour(), booking.getToHour())){
+			Date dateNow = new Date();
+			model.addAttribute("date", dateFormat.format(dateNow));
+			model.addAttribute("tables", dinnerTableService.listTable());
+			model.addAttribute("booked", true);
+			model.addAttribute("booking", booking);
+			return "booking";
+			
+		}
+
+		booking.setCustomer((User) authentication.getPrincipal());
+		
 		bookingService.addBooking(booking);
 		return "booksuccessful";
-		
+
 	}
 
 }

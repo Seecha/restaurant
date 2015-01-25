@@ -72,7 +72,7 @@
 								</form>
 							</td>
 							<td>
-								<form method="get" action="#" th:action="@{/admin/deleteOrder}">
+								<form method="post" action="#" th:action="@{/admin/deleteOrder}">
 									<input type="hidden" name="id" th:value="${order.id}" />
 									<input type="submit" th:value="#{ui.adminOldOrders.delete}" />								
 								</form>

@@ -44,6 +44,9 @@
 							<td th:if="${wrongDateFormat != null}">
 								<span class="errormsg" th:text="#{ui.err.wrongDateFormat}"></span>
 							</td>
+							<td th:if="${booked != null}">
+								<span class="errormsg" th:text="#{ui.err.booked}"></span>
+							</td>
 						</tr>
 						<tr>
 							<td th:text="#{ui.bookings.sinceHour} + ' : '"></td>

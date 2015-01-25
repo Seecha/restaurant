@@ -16,11 +16,12 @@
 <div id="container">
     <div th:include="../templates/menu :: menu"></div>
     <div id="main_content">
-        Successfully registered !
+        <p th:text="#{ui.regsucessfull}">
+        </p>
     </div>
 </div>
 
-<footer >This is footer </footer>
+<footer th:include="../templates/footer :: footer"></footer>
 
 </body>
 </html>

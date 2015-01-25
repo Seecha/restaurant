@@ -142,6 +142,12 @@ public class AdminController {
         return "admin/adminOldBookings";
     }
     
+    @RequestMapping(value= "/deleteBooking",  method = RequestMethod.POST)
+    public String deleteBooking(@RequestParam int id){
+    	bookingService.removeBooking(id);
+        return "redirect:/admin/oldBookings";
+    }
+    
     @RequestMapping(value= "/addIngredient", method = RequestMethod.GET)
     public String showAddIngredient(Model model){
     	model.addAttribute("newIngredientForm", new NewIngredientForm());
@@ -347,7 +353,7 @@ public class AdminController {
     	shift.setSinceHour(since);
     	shift.setToHour(to);
     	shiftService.addShift(shift);
-        return "redirect:/adminHome";
+        return "redirect:/admin/shifts";
     }
     
     @RequestMapping(value= "/shifts", method = RequestMethod.GET)
@@ -395,6 +401,11 @@ public class AdminController {
     		shift.getEmployees().add(userService.getUserById(username));  	
     		shiftService.updateShift(shift);
     	}
+    	return "redirect:/admin/shifts";
+    }
+    @RequestMapping(value= "/deleteShift", method = RequestMethod.POST)
+    public String deleteShift(@RequestParam int id){
+    	shiftService.removeShift(id);
     	return "redirect:/admin/shifts";
     }
     

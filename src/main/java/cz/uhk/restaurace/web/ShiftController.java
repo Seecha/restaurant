@@ -67,7 +67,6 @@ public class ShiftController {
         //get localized info about them
         List<User> chefs = userService.getEmployeesLocalized(userService.getUsersByRole(chefRole), language);
         List<User> cooks = userService.getEmployeesLocalized(userService.getUsersByRole(cookRole), language);
-
         model.addAttribute("chefs", chefs);
         model.addAttribute("cooks", cooks);
         return "personal";

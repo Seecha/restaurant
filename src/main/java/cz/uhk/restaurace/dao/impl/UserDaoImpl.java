@@ -74,9 +74,10 @@ public class UserDaoImpl implements UserDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.createCriteria(User.class)
 				.createCriteria("roles")
-				.add(Restrictions.eq("roleType", role))
+				.add(Restrictions.eq("roleType", role)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override

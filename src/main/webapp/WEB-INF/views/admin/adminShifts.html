@@ -25,6 +25,7 @@
       					<td th:text="#{ui.adminShifts.to}"></td>
       					<td th:text="#{ui.adminShifts.employees}"></td>
       					<td></td>
+      					<td></td>
       					
       				</tr>
       			</thead>
@@ -47,6 +48,13 @@
 							<form th:action="@{/admin/shift}" action="#" method="get">
 								<input type="hidden" th:value="${shift.id}" name="id"/>
 								<input type ="submit" th:value="#{ui.adminShifts.edit}" />
+								
+							</form>
+						</td>
+						<td>
+							<form th:action="@{/admin/deleteShift}" action="#" method="post">
+								<input type="hidden" th:value="${shift.id}" name="id"/>
+								<input type ="submit" th:value="#{ui.adminOldOrders.delete}"/>
 								
 							</form>
 						</td>

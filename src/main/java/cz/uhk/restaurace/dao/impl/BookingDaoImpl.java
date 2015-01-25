@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cz.uhk.restaurace.model.Booking;
+import cz.uhk.restaurace.model.DinnerTable;
 
 @Repository
 public class BookingDaoImpl implements BookingDao {
@@ -86,6 +87,17 @@ public class BookingDaoImpl implements BookingDao {
 		criteria.add(Restrictions.lt("date", date));
 		criteria.addOrder(Order.desc("date"));
 		criteria.addOrder(Order.asc("sinceHour"));
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Booking> getTableBookingOnTime(java.sql.Date date, int since, int to, DinnerTable table){
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Booking.class);
+		criteria.add(Restrictions.eq("date", date));
+		criteria.add(Restrictions.eq("dinnerTable", table));
+		criteria.add(Restrictions.between("sinceHour", since-1, to));
+		criteria.add(Restrictions.between("toHour", since-1, to+1));
 		return criteria.list();
 	}
 }
